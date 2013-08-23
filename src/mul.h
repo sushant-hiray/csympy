@@ -3,6 +3,7 @@
 
 #include "basic.h"
 #include "dict.h"
+#include <boost/pool/pool_alloc.hpp>
 
 namespace CSymPy {
 
@@ -39,6 +40,14 @@ public:
             const map_basic_basic& dict);
 
     virtual RCP<Basic> diff(const RCP<Symbol> &x) const;
+
+    static inline void* operator new(std::size_t sz) {
+        return pool.allocate();
+    }
+    static inline void operator delete(void* p) {
+        pool.deallocate(static_cast<Mul*>(p));
+    }
+    static boost::fast_pool_allocator<Mul> pool;
 };
 
 RCP<Basic> mul(const RCP<Basic> &a,

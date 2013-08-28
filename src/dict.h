@@ -2,6 +2,7 @@
 #define CSYMPY_DICT_H
 
 #include <gmpxx.h>
+#include "FSBAllocator.hh"
 
 namespace CSymPy {
 
@@ -23,7 +24,7 @@ typedef std::map<vec_int, mpz_class> map_vec_mpz;
 typedef std::map<RCP<Basic>, RCP<Number>,
         RCPBasicKeyLess> map_basic_int;
 typedef std::map<RCP<Basic>, RCP<Basic>,
-        RCPBasicKeyLess> map_basic_basic;
+        RCPBasicKeyLess, FSBAllocator<RCP<Basic>>> map_basic_basic;
 
 // insert(m, first, second) is equivalent to m[first] = second, just faster,
 // because no default constructor is called on the "second" type.

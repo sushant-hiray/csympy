@@ -6,6 +6,10 @@
 
 namespace CSymPy {
 
+class Mul;
+
+static FSBAllocator<Mul> alloc;
+
 class Mul : public Basic {
 public: // TODO: make this private
     RCP<Number> coef_; // The coefficient (e.g. "2" in 2*x*y)
@@ -38,7 +42,16 @@ public:
 
     virtual RCP<Basic> diff(const RCP<Symbol> &x) const;
     virtual RCP<Basic> subs(const map_basic_basic &subs_dict) const;
+
+    // This seems to bring a tiny speedup:
+    static inline void* operator new(std::size_t sz) {
+        return alloc.allocate(1);
+    }
+    static inline void operator delete(void* p) {
+        alloc.deallocate(static_cast<Mul*>(p), 1);
+    }
 };
+
 
 RCP<Basic> mul(const RCP<Basic> &a,
         const RCP<Basic> &b);

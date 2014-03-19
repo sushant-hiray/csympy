@@ -230,6 +230,17 @@ void test_prime_factor_multiplicities()
     _test_prime_factor_multiplicities(i2357);
 }
 
+void test_factorial()
+{
+    RCP<const Integer> i10 = integer(10);
+    RCP<const Integer> i3 = integer(3);
+    RCP<const Integer> i6 = integer(6);
+
+    assert(eq(factorial(*i6), integer(720)));
+    assert(neq(factorial(*i3), integer(5)));
+    assert(eq(factorial(*i10), integer(3628800)));
+}
+
 int main(int argc, char* argv[])
 {
     print_stack_on_segfault();
@@ -243,6 +254,7 @@ int main(int argc, char* argv[])
     test_sieve();
     test_prime_factors();
     test_prime_factor_multiplicities();
+    test_factorial();
 
     return 0;
 }

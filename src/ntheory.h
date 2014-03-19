@@ -47,6 +47,10 @@ void prime_factors(const RCP<const Integer> &n,
 void prime_factor_multiplicities(const RCP<const Integer> &n,
         map_integer_uint &primes);
 
+//Factorial using GMP's predefined function
+RCP<const Integer> factorial(const Integer &a);
+
 }
+
 #endif
 

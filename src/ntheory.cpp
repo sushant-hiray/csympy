@@ -286,5 +286,14 @@ void prime_factor_multiplicities(const RCP<const Integer> &n,
         insert(primes, _n, 1);
 }
 
+
+
+RCP<const Integer> factorial(const Integer &a)
+{
+    mpz_class c;
+
+    mpz_fac_ui(c.get_mpz_t(), a.as_int());
+    return integer(c);
+}
 } // CSymPy
 
